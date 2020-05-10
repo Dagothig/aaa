@@ -7,11 +7,8 @@ const path = require('path');
 const root = path.dirname(require.main.filename);
 const aaa = fs.promises.readdir('aaa');
 
-app.get('*', (req, res) => Promise.resolve(
-    (async () => {
-        const name = (await aaa).random();
-        res.sendFile(`aaa/${name}`, { root });
-    })()
-));
+app.get('/', (req, res) =>
+    aaa.then(files =>
+        res.sendFile(`aaa/${ files.random() }`, { root })));
 
 server.listen(process.env.SERVER_PORT || 1337);
