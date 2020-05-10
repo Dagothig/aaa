@@ -1,0 +1,12 @@
+{
+  "name": "aaa",
+  "version": "aaa",
+  "description": "aaa",
+  "main": "aaa.js",
+  "repository": "https://github.com/Dagothig/aaa",
+  "author": "aaa",
+  "license": "aaa",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
