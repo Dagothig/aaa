@@ -1,17 +1,24 @@
 require('./monkey');
 
-const app = require('express')();
-const server = require('http').createServer(app);
+const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const root = path.dirname(require.main.filename);
 const aaa = fs.promises.readdir('aaa');
 
-app.get('/', (req, res) =>
-    aaa.then(files => {
+const server = http.createServer(async (req, res) => {
+    try {
+        res.statusCode = 200;
         res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
         res.setHeader('Pragma', 'no-cache, no-store');
-        res.sendFile(`aaa/${ files.random() }`, { root })
-    }));
+        res.write(await fs.promises.readFile(`${ root }/aaa/${ (await aaa).random() }`));
+    } catch(err) {
+        console.error(err);
+        res.statusCode = 500;
+    }
+    res.end();
+});
 
-server.listen(process.env.SERVER_PORT || 1337);
+const port = process.env.SERVER_PORT || 1337;
+server.listen(port);
+console.log('aaa listening on', port);
