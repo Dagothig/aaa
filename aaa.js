@@ -2,7 +2,7 @@ require('./monkey');
 
 const dirs = ['victwere', 'aaa'];
 const getDir = host => {
-    const sub = (host || '').subdomain();
+    const sub = (host || '').split('.')[0];
     const dir = dirs.find(dir => dir === sub);
     return dir || 'aaa';
 };
