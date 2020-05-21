@@ -9,5 +9,5 @@ patch(Array.prototype, function random() {
 
 patch(String.prototype, function subdomain() {
     const split = this.split('.');
-    return split[split.length - 1];
+    return split[split.length - 2];
 });
