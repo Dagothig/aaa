@@ -1,4 +1,5 @@
 require('./monkey');
+const mime = require('mime-types');
 
 const dirs = ['victwere', 'aaa'];
 const getDir = host => {
@@ -20,6 +21,7 @@ const server = http.createServer(async (req, res) => {
         res.statusCode = 200;
         res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
         res.setHeader('Pragma', 'no-cache, no-store');
+        res.setHeader('Content-type', mime.contentType(file));
         res.write(await fs.promises.readFile(`${ root }/${ dir }/${ file }`));
     } catch(err) {
         console.error(err);
