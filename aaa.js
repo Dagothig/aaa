@@ -1,28 +1,30 @@
 require('./monkey');
-const mime = require('mime-types');
-
-const dirs = ['victwere', 'aaa'];
-const getDir = host => {
-    const sub = (host || '').split('.')[0];
-    const dir = dirs.find(dir => dir === sub);
-    return dir || 'aaa';
-};
-
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const mime = require('mime-types');
+
+const aaas = [
+    { path: 'aaa', regex: /^a+$/ },
+    { path: 'victwere', regex: /^victwe+re$/ }
+].map(aaa => ({ ...aaa, dir: fs.promises.readdir(aaa.path) }));
+
+const getAaa = host => {
+    const sub = (host || '').split('.')[0];
+    return aaas.find(aaa => sub.match(aaa.regex)) || aaas[0];
+};
+
 const root = path.dirname(require.main.filename);
-const aaas = Object.fromEntries(dirs.map(dir => [dir, fs.promises.readdir(dir)]));
 
 const server = http.createServer(async (req, res) => {
     try {
-        const dir = getDir(req.headers.host);
-        const file = (await aaas[dir]).random();
+        const aaa = getAaa(req.headers.host);
+        const file = (await aaa.dir).random();
         res.statusCode = 200;
         res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
         res.setHeader('Pragma', 'no-cache, no-store');
         res.setHeader('Content-type', mime.contentType(file));
-        res.write(await fs.promises.readFile(`${ root }/${ dir }/${ file }`));
+        res.write(await fs.promises.readFile(`${ root }/${ aaa.path }/${ file }`));
     } catch(err) {
         console.error(err);
         res.statusCode = 500;
