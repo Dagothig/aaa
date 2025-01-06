@@ -6,7 +6,8 @@ const mime = require('mime-types');
 
 const aaas = [
     { path: 'aaa', regex: /^a+$/ },
-    { path: 'victwere', regex: /^victwe+re$/ }
+    { path: 'victwere', regex: /^victwe+re$/ },
+    { path: 'HPQCMAAS', regex: /^hpqcmaas$/ }
 ].map(aaa => ({ ...aaa, dir: fs.promises.readdir(aaa.path) }));
 
 const getAaa = host => {
