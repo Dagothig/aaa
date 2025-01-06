@@ -1,3 +1,5 @@
+Harry Potter Québécois Commit Message As A Service
+
 Dans votre shell, roulez:
     git config --global alias.gud '!git commit -m "\`curl -s http://hpqcmaas.dagothig.com/\`" --all'
 
