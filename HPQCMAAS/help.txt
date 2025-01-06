@@ -1,0 +1,5 @@
+Dans votre shell, roulez:
+    git config --global alias.gud '!git commit -m "\`curl -s http://hpqcmaas.dagothig.com/\`" --all'
+
+Et désormais vous pourrez facilement envoyer tout vos changements:
+    git gud
